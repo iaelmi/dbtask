@@ -8,8 +8,8 @@ public class Patient {
     int age;
     String gender;
     String b_type;
-    double weight;
     double height;
+    double weight;
 
     public Patient(UUID id, String name, int age, String gender, String b_type, double weight, double height) {
         this.id = id;
