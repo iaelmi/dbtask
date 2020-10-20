@@ -37,7 +37,7 @@ public class Controller implements Initializable {
 
     final String AWSURL = "jdbc:mysql://" + hostname + ":" + port + "/" + dbname + "?user=" + username + "&password=" + password;
 
-    String tempURL = "jdbc:mysql://localhost/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+   // String tempURL = "jdbc:mysql://localhost/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -103,7 +103,7 @@ public class Controller implements Initializable {
                 statement.executeUpdate("delete from patients.tablepatients");
                 //inserting all the patient to database
                 for (Patient patient : object) {
-                    String s = "INSERT INTO tablepatients (id, name , age, gender, blood, weight, height) VALUES ('" + patient.getId().toString() + "','" + patient.getName() + "','" + patient.getAge() + "','" + patient.getGender() + "','" + patient.getB_type() + "','" + patient.getWeight() + "','" + patient.getHeight() + "')";
+                    String s = "INSERT INTO patients.tablepatients (id, name , age, gender, blood, weight, height) VALUES ('" + patient.getId().toString() + "','" + patient.getName() + "','" + patient.getAge() + "','" + patient.getGender() + "','" + patient.getB_type() + "','" + patient.getWeight() + "','" + patient.getHeight() + "')";
                     statement.execute(s);
                 }
                 con.close();
@@ -136,20 +136,19 @@ public class Controller implements Initializable {
             String select = comboF.getSelectionModel().getSelectedItem();
             String query = "";
             if ("All Patient".equals(select)) {
-                query = "SELECT * FROM tablepatients";
+                query = "SELECT * FROM patients.tablepatients";
             } else if ("Greater Age then 25".equals(select)) {
-                query = "SELECT * FROM Patients.tablepatients WHERE age > 25";
+                query = "SELECT * FROM patients.tablepatients WHERE age > 25";
             } else if ("Female Patient".equals(select)) {
-                query = "Select * from Patients.tablepatients where gender Like 'female'";
+                query = "Select * from patients.tablepatients where gender Like 'female'";
                 System.out.println(query);
             } else if ("Male Patient".equals(select)) {
-                query = "Select * from Patients.tablepatients where gender Like 'male'";
+                query = "Select * from patients.tablepatients where gender Like 'male'";
                 System.out.println(query);
             } else if ("Greater Height than 180".equals(select)) {
-                query = "SELECT * FROM Patients.tablepatients WHERE height > 180";
+                query = "SELECT * FROM patients.tablepatients WHERE height > 180";
             }
             //calling the display data function by passing the query
-            s.execute("use Patients");
             System.out.println(query);
             rs = s.executeQuery(query);
             list.getItems().clear();
